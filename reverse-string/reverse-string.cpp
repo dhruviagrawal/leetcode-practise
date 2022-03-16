@@ -4,7 +4,11 @@ public:
     {
         if(left>right)
             return;
-        swap(s[left],s[right]);
+        // swap(s[left],s[right]);
+        
+        char temp=s[left];
+        s[left]=s[right];
+        s[right]=temp;
         rev(left+1, right-1, s);
     }
     void reverseString(vector<char>& s) {
