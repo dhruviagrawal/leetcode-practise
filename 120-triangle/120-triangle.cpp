@@ -3,20 +3,22 @@ public:
     int minimumTotal(vector<vector<int>>& a) {
         int n=a.size();
         
-        vector<vector<int>>dp(n,vector<int>(n,-1));
+        vector<int>nextRow(n,0);
         
         for(int j=0;j<n;j++)
-            dp[n-1][j]=a[n-1][j];
+            nextRow[j]=a[n-1][j];
         
         for(int i=n-2;i>=0;i--)
         {
+            vector<int>currRow(n,0);
             for(int j=i;j>=0;j--)
             {
-                int d=a[i][j]+dp[i+1][j];
-                int dg=a[i][j]+dp[i+1][j+1];
-                dp[i][j]=min(d,dg);
+                int d=a[i][j]+nextRow[j];
+                int dg=a[i][j]+nextRow[j+1];
+                currRow[j]=min(d,dg);
             }
+            nextRow=currRow;
         }
-        return dp[0][0];
+        return nextRow[0];
     }
 };
