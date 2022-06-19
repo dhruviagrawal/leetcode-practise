@@ -11,27 +11,25 @@ public:
         else
         {
             s=s/2;
-            vector<vector<bool>>dp(n,vector<bool>(s+1,0));
-            for(int ind=0;ind<n;ind++)
-                dp[ind][0]=true;
-            if(nums[0]<=s)
-                dp[0][nums[0]]=true;
+            vector<bool>prev(s+1,0),curr(s+1,0);
+            prev[0]=curr[0]=true;
             
             for(int ind=1;ind<n;ind++)
             {
                 for(int target=1;target<=s;target++)
                 {
-                    bool notpick=dp[ind-1][target];
+                    bool notpick=prev[target];
         
                     bool pick=false;
                     if(nums[ind]<=target)
-                        pick=dp[ind-1][target-nums[ind]];
+                        pick=prev[target-nums[ind]];
 
-                    dp[ind][target]=pick | notpick;
+                    curr[target]=pick | notpick;
                 }
+                prev=curr;
             }
             
-            return dp[n-1][s];
+            return prev[s];
         }
     }
 };
