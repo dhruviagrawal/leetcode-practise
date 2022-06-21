@@ -2,10 +2,7 @@ class Solution {
 public:
     int change(int amount, vector<int>& coins) {
         int n=coins.size();
-        if(!n)
-            return 0;
-        if(!amount)
-            return 1;
+        
         vector<vector<int>>dp(n,vector<int>(amount+1,0));
 
         for(int t=0;t<=amount;t++)
