@@ -2,9 +2,9 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices, int fee) {
         int n=prices.size();
-        vector<vector<int>>dp(n+1,vector<int>(2,0));
+        vector<int>next(2,0),curr(2,0);
        
-        //dp[n][0]=dp[n][1]=0;
+        //next[0]=next[1]=0;
         
         for(int i=n-1;i>=0;i--)
         {
@@ -13,20 +13,21 @@ public:
                 int maxp=0;
                 if(b)
                 {
-                    int b=-prices[i]+dp[i+1][0];
-                    int nb=dp[i+1][1];
+                    int b=-prices[i]+next[0];
+                    int nb=next[1];
                     maxp=max(b,nb);
                 }
                 else
                 {
-                    int s=prices[i]-fee+dp[i+1][1];
-                    int ns=dp[i+1][0];
+                    int s=prices[i]-fee+next[1];
+                    int ns=next[0];
                     maxp=max(s,ns);
                 }
-                dp[i][b]=maxp;
+                curr[b]=maxp;
             }
+            next=curr;
         }
         
-        return dp[0][1];
+        return next[1];
     }
 };
