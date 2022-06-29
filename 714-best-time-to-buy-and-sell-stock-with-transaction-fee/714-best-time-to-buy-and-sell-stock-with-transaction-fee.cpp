@@ -1,30 +1,32 @@
 class Solution {
 public:
-    int solve(int ind, int buy, vector<int>&prices, vector<vector<int>>&dp, int fee)
-    {
-        if(ind==prices.size())
-            return 0;
-        if(dp[ind][buy]!=-1)
-            return dp[ind][buy];
-        int maxp;
-        if(buy)
-        {
-            int b=-prices[ind]+solve(ind+1, 0, prices,dp,fee);
-            int nb=solve(ind+1, 1, prices,dp,fee);
-            maxp=max(b,nb);
-        }
-        else
-        {
-            int s=prices[ind]-fee+solve(ind+1, 1, prices, dp, fee);
-            int ns=solve(ind+1, 0, prices, dp, fee);
-            maxp=max(s,ns);
-        }
-        return dp[ind][buy]=maxp;
-    }
     int maxProfit(vector<int>& prices, int fee) {
         int n=prices.size();
-        vector<vector<int>>dp(n,vector<int>(2,-1));
-        int maxp=solve(0,1, prices,dp, fee);
-        return maxp;
+        vector<vector<int>>dp(n+1,vector<int>(2,0));
+       
+        //dp[n][0]=dp[n][1]=0;
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int b=0;b<=1;b++)
+            {
+                int maxp=0;
+                if(b)
+                {
+                    int b=-prices[i]+dp[i+1][0];
+                    int nb=dp[i+1][1];
+                    maxp=max(b,nb);
+                }
+                else
+                {
+                    int s=prices[i]-fee+dp[i+1][1];
+                    int ns=dp[i+1][0];
+                    maxp=max(s,ns);
+                }
+                dp[i][b]=maxp;
+            }
+        }
+        
+        return dp[0][1];
     }
 };
