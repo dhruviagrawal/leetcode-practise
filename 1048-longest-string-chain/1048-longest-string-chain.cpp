@@ -1,21 +1,49 @@
 class Solution {
 public:
-    static bool compare(const string &s1, const string &s2) {
-        return s1.length() < s2.length();
+    static bool comp(string &s1, string &s2)
+    {
+        return (s1.size()<s2.size());
     }
-
-    int longestStrChain(vector<string>& words) {
-        sort(words.begin(), words.end(), compare);
-        unordered_map<string, int> dp;
-        int res = 0;
-        for (string w : words) {
-            for (int i = 0; i < w.length(); i++) {
-                string pre = w.substr(0, i) + w.substr(i + 1);
-                dp[w] = max(dp[w], dp.find(pre) == dp.end() ? 1 : dp[pre] + 1);
+    bool possible(string &s1, string &s2)
+    {
+        int n=s1.size();
+        int m=s2.size();
+        
+        if(n!=m+1)
+            return false;
+        int i=0,j=0;
+        while(i<n)
+        {
+            if(s1[i]==s2[j])
+            {
+                i++;
+                j++;
             }
-            res = max(res, dp[w]);
+            else
+                i++;
         }
-        return res;
+        
+        if(i==n && j==m)
+            return true;
+        
+        return false;
     }
-
+    int longestStrChain(vector<string>& words) {
+        int n=words.size();
+        sort(words.begin(), words.end(), comp);
+        vector<int>dp(n,1);
+        int maxi=1;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(possible(words[i],words[j]) && dp[j]+1>dp[i])
+                {
+                    dp[i]=dp[j]+1;
+                }
+            }
+            maxi=max(maxi, dp[i]);
+        }
+        return maxi;
+    }
 };
