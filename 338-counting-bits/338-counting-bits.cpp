@@ -1,22 +1,22 @@
 class Solution {
 public:
-    vector<int> countBits(int n) {
-        vector<int> l;
-        l.push_back(0);
-        
-        for(int i = 1; i< n+1; i++)
+    int setbits(int n)
+    {
+        int c=0;
+        while(n)
         {
-            if (i%2 != 0)
-            { // i is odd
-                
-                l.push_back(l[i/2]+1);
-            
-            } 
-            else
-            { // i is even
-                l.push_back(l[i/2]);
-            }    
+            n=n&(n-1);
+            c++;
         }
-        return l; 
+        return c;
+    }
+    vector<int> countBits(int n) {
+        vector<int>ans(n+1,0);
+        
+        for(int i=1;i<=n;i++)
+        {
+            ans[i]=setbits(i);
+        }
+        return ans;
     }
 };
