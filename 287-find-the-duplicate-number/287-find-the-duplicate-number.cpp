@@ -12,14 +12,36 @@ public:
 //         return -1;
         
         
-        unordered_map<int,int>mp;
-        for(int n:nums)
+        
+        
+//         unordered_map<int,int>mp;
+//         for(int n:nums)
+//         {
+//             if(mp.find(n)!=mp.end())
+//                 return n;
+//             mp[n]++;
+//         }
+        
+//         return -1;
+        
+        
+        
+        int slow=nums[0], fast=nums[0];
+        
+        do{
+            slow=nums[slow];
+            fast=nums[nums[fast]];
+        }
+        while(slow!=fast);
+        
+        fast=nums[0];
+        
+        while(slow!=fast)
         {
-            if(mp.find(n)!=mp.end())
-                return n;
-            mp[n]++;
+            slow=nums[slow];
+            fast=nums[fast];
         }
         
-        return -1;
+        return slow;
     }
 };
