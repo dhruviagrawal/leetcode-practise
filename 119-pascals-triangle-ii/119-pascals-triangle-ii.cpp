@@ -1,15 +1,26 @@
 class Solution {
 public:
-    vector<int> getRow(int n) {
-        vector<int> v(n + 1);
-       	v[0] = 1;
-        for (int i = 0; i <= n ; i++)
+    long long int ncr(int n, int r)
+    {
+       long long int ans=1;
+       
+        for(int i=1;i<=r;i++)
         {
-        	for (int j = i; j > 0; j--)
-        	{
-	        	v[j] = v[j] + v[j-1];
-        	}
+            ans*=(n-i+1);
+            ans/=i;
         }
-        return v;
+        return ans;
+    }
+    vector<int> getRow(int n) {
+        vector<int>ans;
+        
+       int i=n;
+        
+        for(int j=0;j<=i;j++)
+        {
+            ans.push_back(ncr(i,j));
+        }
+        
+        return ans;
     }
 };
