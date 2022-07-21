@@ -25,7 +25,7 @@ public:
     }
     int diameterOfBinaryTree(TreeNode* root) {
         int maxi=INT_MIN;
-        int ans=solve(root,maxi);
+        solve(root,maxi);
         return maxi;
     }
 };
