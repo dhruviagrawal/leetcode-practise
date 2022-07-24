@@ -7,23 +7,11 @@ public:
             return mat;
         vector<vector<int>>ans(r, vector<int>(c,-1));
         
-        vector<int>v;
-        for(int i=0;i<m;i++)
+        for(int i=0;i<(r*c);i++)
         {
-            for(int j=0;j<n;j++)
-            {
-                 v.push_back(mat[i][j]);
-            }
+            ans[i/c][i%c]=mat[i/n][i%n];
         }
-        int k=0;
-        for(int i=0;i<r;i++)
-        {
-            for(int j=0;j<c;j++)
-            {
-                ans[i][j]=v[k];
-                k++;
-            }
-        }
+       
         return ans;
     }
 };
