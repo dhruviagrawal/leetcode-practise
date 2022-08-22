@@ -3,5 +3,5 @@ powers of 2-
 1, 10, 100, 1000 so on..
 alternate is power of 4
 1, 100, 10000 so on..
-rightshift till 1, then leftshift. if not equal means there were more set bits so return     false.
+rightshift till 1(n>>=2, divide by 4 each time), then leftshift. if not equal means there were more set bits so return     false.
 2. TC O(1)
